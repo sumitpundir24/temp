@@ -21,13 +21,13 @@ The goals / steps of this project are the following:
 
 [image1]: ./readme_images/undistort_s.png "Undistorted"
 [image2]: ./readme_images/undistort_on_test.png "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
+[image3]: ./readme_images/color_x_graident.png "Binary Example"
 [image4]: ./readme_images/perspective_transform.png "Warp Example"
 [image5]: ./readme_images/identify_lane_pixels.png "Fit Visual"
 [image6]: ./readme_images/final_plot.png "Output"
 [image7]: ./readme_images/src_des_points.png "Output"
 [image8]: ./readme_images/dynamic_search.png "Output"
-[video1]: ./project_video.mp4 "Video"
+[video1]: ./project_video_output.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
@@ -45,9 +45,9 @@ You're reading it!
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in the function DISTORTION function code cell of the IPython notebook located in "advanced_lane_detection_test.ipynb".
-	I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
-	I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+The code for this step is contained in the function cam_callibrate() for camera callibaryion and cal_undistort() for image distortion correction.
+I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
+I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
 ![alt text][image1]
 
@@ -55,18 +55,19 @@ The code for this step is contained in the function DISTORTION function code cel
 
 #### 1. Provide an example of a distortion-corrected image.
 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+I applied the distortion correction to one of the test images like this one. I compute the camera matrix and distortion co-efficients to undistort the image.
 ![alt text][image2]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-The functon <pipeline> is used to give the thresholded binary image.
+The functon pipeline() is used to give the thresholded binary image.
 COLOR TRANSFORMATION :
-The function .... creates a thresholded binary image. The R channel of RGB, S of HLS is used for color transformation because (study about reasons of each transformation).
+It creates a thresholded binary image. The R channel of RGB, S and L channle of HLS is used for color transformation. R channel thresholds are used as they detect yellow lines well, S channle thresholds are used to differentiate between yellow and white lines and L channel is good for avoiding shadows as studied from the lecture.
 
 GRAIDENT TRANSORMATION :
-The function <abs_sobel_thresh>  to find the sobel-x along X-axis and <dir_thresh> are applied on the binary thresholded image.
-The combination of both gradients leads to noisy image therefore only gradient sobel-x along X-direction is selected.
+The function abs_sobel_thresh () to find the sobel-x along X-axis is applied on the binary thresholded image.
+It is used along X-axis since lane lines are mostly vertical.
+
 
 The COLOR transformation and gradient transformation are combined together to form a final thresholded image.
 
@@ -77,7 +78,7 @@ The COLOR transformation and gradient transformation are combined together to fo
 Straight lines images are used for perspective transform. Four source points and four destination points are selected. Destination points are selected in a way to get the bird view of a road. 
 ![alt text][image7]
 
-cv2.getPerspectiveTransform() function is used to calculate the transformation matrix. Inverse transformation matrix is also calculated which helps i getting the map to original image.
+perform_perspective_transform() function is used to calculate the transformation matrix. Inverse transformation matrix is also calculated which helps in getting the map to original image.
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
@@ -85,9 +86,9 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-The fucntion <function> identify the lane pixels and fit there positions in polynomials.
+The fucntion find_lane_pixels() identify the lane pixels and fit there positions in polynomials.
 The steps used to identify lane are :
-Step 1 : Histogram calculation along the X axis
+Step 1 : Histogram calculation along the X axis. function calculate_histogram() calculates the histogram.
 Step 2 : Find the peaks of the left and right side of the lane in histogram. And divide the image into two windows (left and right).
 Step 3 : Count all non-zero points present in the window.
 Step 4 : Fit the polynomial using np.polyfit().
@@ -103,7 +104,11 @@ Searching around previosly detected lane line Since consecutive frames are likel
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+Two things are calculated :
+1. Curvature of the road : Function measure_curvature_real() calculates the radius of curvature. Defined conversions in x and y from pixels space to meters. Polynomial fit is calculated in that space. Average of two lines is used a radius of curavture.
+
+2. Position of the vehicle : Function car_position_road() calculates the position of car. Defined conversions in x and y from pixels space to meters. Calculated the position of line beginening from the bottom of the image. Comparing it with middle of image helps in finding the car position assuming car position is in the middle of the car.
+
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
@@ -119,12 +124,23 @@ The function show_final_image_with_lanes() implements this.
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_video_output.mp4)
+The function pipeline_final() is the complete pipeline of all the steps explained above.
 
 ---
 
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+ 
+Challanges and Issues :
+A lot of experiment needs to be done in gradient and color thresholding. I tested my results on various values of gradient and thresholding. I focused first on frames where color changes and large shadows are present. So, I've take a threshold to handle those frames first.
+I also spend more time on choosing the source and destination points in the perspective transform. Choosing these points improved the performance of pipeline a little bit.
+I tried my pipeline on challange video but it fails after completeing 51 % frames. I'll try to make my pipeline better to work on that video also.
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+Improvements :
+The pipeline fails at the harder challenge video. So, I think it can be improved by taking a better perpective tranform by choosing a smaller section of area from image to avoid high turns in the video. 
+
+I think usage of deep nueral networks instead of image processing techniques can do much better in detecting lanes.
+
+
