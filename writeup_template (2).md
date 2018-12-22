@@ -45,7 +45,8 @@ You're reading it!
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in the function cam_callibrate() for camera callibaryion and cal_undistort() for image distortion correction.
+The code for this step is contained in the function cam_callibrate() for camera calibration and cal_undistort() for image distortion correction.
+
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
@@ -75,7 +76,7 @@ The COLOR transformation and gradient transformation are combined together to fo
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-Straight lines images are used for perspective transform. Four source points and four destination points are selected. Destination points are selected in a way to get the bird view of a road. 
+Straight lines images are used for perspective transform. Four source points and four destination points are selected. Destination points are selected in a way to get the bird eye view of a road. 
 ![alt text][image7]
 
 perform_perspective_transform() function is used to calculate the transformation matrix. Inverse transformation matrix is also calculated which helps in getting the map to original image.
@@ -88,16 +89,19 @@ I verified that my perspective transform was working as expected by drawing the 
 
 The fucntion find_lane_pixels() identify the lane pixels and fit there positions in polynomials.
 The steps used to identify lane are :
+
 Step 1 : Histogram calculation along the X axis. function calculate_histogram() calculates the histogram.
+
 Step 2 : Find the peaks of the left and right side of the lane in histogram. And divide the image into two windows (left and right).
+
 Step 3 : Count all non-zero points present in the window.
+
 Step 4 : Fit the polynomial using np.polyfit().
 
 The polynomial fit done again on the same points to transform pixels into meters for calculation of curvature.
 
 ![alt text][image5]
 
-Since consecutive frames is likely to have lane lines in roughly similar manner so search around prevously detected lane line.
 Searching around previosly detected lane line Since consecutive frames are likely to have lane lines in roughly similar positions, we search around a margin of 100 pixels of the previously detected lane lines using the function search_around_poly().
 
 ![alt text][image8]
@@ -105,6 +109,7 @@ Searching around previosly detected lane line Since consecutive frames are likel
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
 Two things are calculated :
+
 1. Curvature of the road : Function measure_curvature_real() calculates the radius of curvature. Defined conversions in x and y from pixels space to meters. Polynomial fit is calculated in that space. Average of two lines is used a radius of curavture.
 
 2. Position of the vehicle : Function car_position_road() calculates the position of car. Defined conversions in x and y from pixels space to meters. Calculated the position of line beginening from the bottom of the image. Comparing it with middle of image helps in finding the car position assuming car position is in the middle of the car.
@@ -135,7 +140,9 @@ The function pipeline_final() is the complete pipeline of all the steps explaine
  
 Challanges and Issues :
 A lot of experiment needs to be done in gradient and color thresholding. I tested my results on various values of gradient and thresholding. I focused first on frames where color changes and large shadows are present. So, I've take a threshold to handle those frames first.
+
 I also spend more time on choosing the source and destination points in the perspective transform. Choosing these points improved the performance of pipeline a little bit.
+
 I tried my pipeline on challange video but it fails after completeing 51 % frames. I'll try to make my pipeline better to work on that video also.
 
 Improvements :
