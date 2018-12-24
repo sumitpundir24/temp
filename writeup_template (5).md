@@ -29,17 +29,17 @@ The goals / steps of this project are the following:
 [image8]: ./examples/placeholder.png "Traffic Sign 5"
 
 
-[image1]: ./visualizations/labels.png "Visualization"
-[image11]: ./visualizations/labels2.png "Visualization"
-[image12]: ./visualizations/histogram.png "Visualization"
-[image2]: ./visualizations/before_processing.png "Grayscaling"
-[image21]: ./visualizations/after_processing.png "Grayscaling"
-[image3]: ./visualizations/softmax.png "Softmax score"
-[image4]: ./test_images/Do-Not-Enter.jpg "Traffic Sign 1"
-[image5]: ./test_images/sign_test.jpg "Traffic Sign 2"
-[image6]: ./test_images/slippery_roads.jpg "Traffic Sign 3"
-[image7]: ./test_images/stop.jpeg "Traffic Sign 4"
-[image8]: ./test_images/street-warning-sign-23729482.jpg "Traffic Sign 5"
+[image1]: ./visualize/labels.png "Visualization"
+[image11]: ./visualize/labels2.png "Visualization"
+[image12]: ./visualize/histogram.png "Visualization"
+[image2]: ./visualize/before_processing.png "Grayscaling"
+[image21]: ./visualize/after_processing.png "Grayscaling"
+[image3]: ./visualize/softmax.png "Softmax score"
+[image4]: ./signs/Do-Not-Enter.jpg "Traffic Sign 1"
+[image5]: ./signs/sign_test.jpg "Traffic Sign 2"
+[image6]: ./signs/slippery_roads.jpg "Traffic Sign 3"
+[image7]: ./signs/stop.jpeg "Traffic Sign 4"
+[image8]: ./signs/street-warning-sign-23729482.jpg "Traffic Sign 5"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
