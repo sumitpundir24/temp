@@ -99,7 +99,7 @@ My final model consisted of the following layers:
 | Fully connected		| Output = 84        									|
 | RELU					|												|
 | Fully connected		| Output = 10        									|
-| Softmax				| etc.        									|
+| Softmax				|         									|
 
  
 
