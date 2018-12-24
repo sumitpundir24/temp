@@ -74,7 +74,7 @@ Here is an example of a traffic sign image before and after grayscaling.
 
 ![alt text][image2]    ![alt text][image21]
 
-As a last step, I normalized the image data because it becomes easy for optimizer to find the solution in normalized image.Also nomalization changes the pixels values of images to a common scale, without distorting differences in the ranges of values or losing information.
+As a last step, I normalized the image data because it becomes easy for optimizer to find the solution in normalized image. Also nomalization changes the pixels values of images to a common scale, without distorting differences in the ranges of values or losing information.
 
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
@@ -133,10 +133,11 @@ Also I converted the dataset images to grayscale and normalized them.
 
 * Which parameters were tuned? How were they adjusted and why?
 
-I tried different learning rates. Intially I choosed learning rate to between range (0.001, 0.005). Finally I choosed 0.4 as I think it performed better than others. Also I tried different dropout probability because It helps to avoid overfitting in the model.
+I tried different learning rates. Intially I choosed learning rate to between range (0.001, 0.005). Finally I choosed 0.004 as I think it performed better than others. Also I tried different dropout probability because It helps to avoid overfitting in the model.
 
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
-In today's world as the demand of computer vision applications increases normal Image processing processing are giving state of the start results. So, more better techniques like Deep learning is required. CNN performs better when we need to deal with image classification, Object detection, segmentation etc. As this is the problem of image classification so, I think the CNN works well for this problem.  Since our model is getting overfitted while training So adding dropout reduces the complexity of model by randomly dropping the weights of some of the nuerons.
+
+In today's world as the demand of computer vision applications increases normal Image processing processing are not giving state of the start results. So, more better techniques like Deep learning is required. CNN performs better when we need to deal with image classification, Object detection, segmentation etc. As this is the problem of image classification so, I think the CNN works well for this problem.  Since our model is getting overfitted while training So adding dropout reduces the complexity of model by randomly dropping the weights of some of the neurons.
 
  
 
