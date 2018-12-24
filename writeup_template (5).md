@@ -31,7 +31,6 @@ The goals / steps of this project are the following:
 [image6]: ./signs/slippery_roads.jpg "Traffic Sign 3"
 [image7]: ./signs/stop.jpeg "Traffic Sign 4"
 [image8]: ./signs/street-warning-sign-23729482.jpg "Traffic Sign 5"
-[image9]: ./signs/softmax.png
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -173,7 +172,7 @@ The code for making predictions on my final model is located in the ln [69] cell
 
 The below image shows the top 5 scores of each image with their labels.
 
-![alt text][image9] 
+![alt text][image3] 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
