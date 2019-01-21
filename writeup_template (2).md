@@ -98,7 +98,7 @@ At the end of the process, I simply removed all the dropout and batch normalizat
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes.
+The final model architecture consisted of a convolution neural network with the following layers and layer sizes.
 
 model = Sequential()
 model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape=(75,155,3)))
