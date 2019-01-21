@@ -55,7 +55,7 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with and 5x5 and 3x3 filters sizes and depths between 24 and 64. The model is using the pooling layer of pool size 2x2.
+My model consists of a convolution neural network with and 5x5 and 3x3 filters sizes and depths between 24 and 64.
 
 The model includes RELU activation in intermediate layers to introduce nonlinearity, and the data is normalized. I used the nvidia model because it's simple and also performs well on self-driving car training. I chnaged the shape of input to (75,155).
 
@@ -67,7 +67,7 @@ The model includes RELU activation in intermediate layers to introduce nonlinear
 I tried several dropout layers in order to reduce overfitting. Also batch normalization also reduce overfitting to small extent. When I tested the model, the car go out of the 
 track in the lake. After removing batch normalization and dropout layers the model performed well without the car being going of the track.
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different train/validation size datasets to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
