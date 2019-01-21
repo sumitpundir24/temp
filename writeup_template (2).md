@@ -129,19 +129,20 @@ Training images contains 4 types of images :
 Correction factor of 0.2 is applied on left and right images. Correction factor of 0.2 is added to the left image. Correction factor of 0.2 is subtracted from the right image.
 
 
-# ![alt text][image6]
-# ![alt text][image7]
-
 Center
+
 ![alt text][image2]
 
 Left
+
 ![alt text][image3]
 
 Right
+
 ![alt text][image4]
 
 Cropped
+
 ![alt text][image5]
 
 
